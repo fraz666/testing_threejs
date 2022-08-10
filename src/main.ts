@@ -1,8 +1,8 @@
 // Puoi fare così come react, top
-import './style.css'
+import "./style.css";
+import "stats.js";
+import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 
-import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
-import 'stats.js';
 
 // var stats = new Stats();
 // stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
