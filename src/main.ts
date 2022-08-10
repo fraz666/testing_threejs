@@ -1,12 +1,14 @@
 // Puoi fare così come react, top
 import "./style.css";
-import "stats.js";
+
+// @ts-ignore
+import Stats from "../lib/stats.min";
 import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 
 
-// var stats = new Stats();
-// stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-// document.body.appendChild( stats.dom );
+var stats = new Stats();
+stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild( stats.dom );
 
 
 const scene = new Scene();
@@ -29,7 +31,7 @@ camera.position.z = 5;
 
 function animate() {
 
-  //stats.begin();
+  stats.begin();
 
   // monitored code goes here
   cube.rotation.x += 0.01;
@@ -37,7 +39,7 @@ function animate() {
 
   renderer.render(scene, camera);
 
-  //stats.end();
+  stats.end();
 
   requestAnimationFrame(animate);
 }

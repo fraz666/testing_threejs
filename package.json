@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite --host 0.0.0.0",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host 0.0.0.0"
   },
   "devDependencies": {
-    "@types/stats": "^0.16.30",
     "@types/three": "^0.143.0",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
@@ -18,7 +18,6 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "stats.js": "^0.17.0",
     "three": "^0.143.0"
   }
 }
