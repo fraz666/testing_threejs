@@ -1,3 +1,8 @@
+// import './style.css'
+// import typescriptLogo from './typescript.svg'
+// import { setupCounter } from './counter'
+// Puoi fare così come react, top
+
 import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 import  'stats.js';
 
