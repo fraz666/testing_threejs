@@ -1,6 +1,18 @@
+var isLocked: boolean = false;
+
 export const onKeyDown = ( event: KeyboardEvent ) => {
 
-    console.log(event);
+    
+
+    // if (event.code == 'Escape') {
+
+    //     console.log(event);
+
+    //     isLocked ? document.body.requestPointerLock() : document.exitPointerLock();
+
+    //     isLocked = !isLocked;
+        
+    // }
 
     // switch ( event.code ) {
 

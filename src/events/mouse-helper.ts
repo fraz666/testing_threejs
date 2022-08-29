@@ -1,22 +1,18 @@
 
 
-export const onMouseMove = ( event: MouseEvent ) => {
+export const onMouseMove = (event: MouseEvent) => {
 
-    console.log(event);
+    //console.log(event);
     // if ( scope.isLocked === false ) return;
 
-    const movementX = event.movementX || 0;
-    const movementY = event.movementY || 0;
+    return event;
 
-    // _euler.setFromQuaternion( camera.quaternion );
+}
 
-    // _euler.y -= movementX * 0.002 * scope.pointerSpeed;
-    // _euler.x -= movementY * 0.002 * scope.pointerSpeed;
+export const onMouseClick = (event: MouseEvent) => {
 
-    // _euler.x = Math.max( _PI_2 - scope.maxPolarAngle, Math.min( _PI_2 - scope.minPolarAngle, _euler.x ) );
+    // N.B.: this APPARENTLY has to stay in an input event
+    document.body.requestPointerLock();
 
-    // camera.quaternion.setFromEuler( _euler );
-
-    // scope.dispatchEvent( _changeEvent );
-
+    return event;
 }

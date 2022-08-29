@@ -3,13 +3,14 @@ import "./style.css";
 
 // @ts-ignore
 import Stats from "../lib/stats.min";
-import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, Scene, Vector3, WebGLRenderer } from "three";
 
-//import { PointerLockControls } from "./controls/PointerLockControls";
+import { UserControls } from "./controls/UserControls";
 import { onKeyDown } from "./events/keyboard-helper";
-import { onMouseMove } from "./events/mouse-helper";
+import { onMouseClick, onMouseMove } from "./events/mouse-helper";
+import { degToRad } from "three/src/math/MathUtils";
 
-var isLocked = false;
+
 
 const stats = new Stats();
 stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -22,48 +23,18 @@ const camera = new PerspectiveCamera(
   0.1, // 1
   1000
 );
-camera.position.z = 5;
+camera.position.z = 5; // goes behind the cube
+
+const user = new UserControls(camera);
 
 const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// const controls = new PointerLockControls( camera, document.body );
-// scene.add(controls);
-
-// utils
-// const blocker = document.getElementById( 'blocker' );
-// if (blocker == null) {
-//   throw 'Unable to locate the blocker element';
-// }
-
-// const instructions = document.getElementById( 'instructions' );
-// if (instructions == null) {
-//   throw 'Unable to locate the instructions element';
-// }
-
-// instructions.addEventListener( 'click', function () {
-
-//   controls.lock();
-
-// } );
-
-// controls.addEventListener( 'lock', function () {
-
-//   instructions.style.display = 'none';
-//   blocker.style.display = 'none';
-
-// } );
-
-// controls.addEventListener( 'unlock', function () {
-
-//   blocker.style.display = 'block';
-//   instructions.style.display = '';
-
-// } );
-
+document.addEventListener( 'keydown', user.updateOnKeyPress );
 document.addEventListener( 'keydown', onKeyDown );
-document.addEventListener( 'mousemove', onMouseMove );
+document.addEventListener( 'mousemove', user.updateOnMouseMove );
+document.addEventListener( 'click', onMouseClick );
 
 // 3D environment
 const geometry = new BoxGeometry(1, 1, 1);
@@ -71,21 +42,41 @@ const material = new MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new Mesh(geometry, material);
 scene.add(cube);
 
+const plane = new Mesh(
+  new PlaneGeometry(30, 30),
+  new MeshBasicMaterial({color: 0xff0000})
+);
+plane.rotation.x = degToRad(-90);
+plane.position.y = -5;
+scene.add(plane);
+// console.log(plane)
+
 // animation loop
+
 let prevTime = performance.now();
 
 function animate() {
 
   stats.begin();
 
+  // monitored code goes here
+
   const time = performance.now();
 
   // frame delta
   const delta = ( time - prevTime ) / 1000;
+  
+  // user
+  user.update(delta);
 
-  // monitored code goes here
+  // environment
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
+
+  
+
+  //console.log(camera.position)
+  //camera.position.x += 0.01;
 
   prevTime = time;
 
