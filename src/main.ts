@@ -31,8 +31,8 @@ const renderer = new WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-document.addEventListener( 'keydown', user.updateOnKeyPress );
-document.addEventListener( 'keydown', onKeyDown );
+document.addEventListener( 'keydown', user.updateOnKeyboard );
+document.addEventListener( 'keyup', user.updateOnKeyboard );
 document.addEventListener( 'mousemove', user.updateOnMouseMove );
 document.addEventListener( 'click', onMouseClick );
 
