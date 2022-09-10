@@ -1,46 +1,46 @@
-var isLocked: boolean = false;
+// const isLocked: boolean = false;
 
-export const onKeyDown = ( event: KeyboardEvent ) => {
+export const onKeyDown = (event: KeyboardEvent) => {
 
-    
 
-    // if (event.code == 'Escape') {
 
-    //     console.log(event);
+  // if (event.code == 'Escape') {
 
-    //     isLocked ? document.body.requestPointerLock() : document.exitPointerLock();
+  //     console.log(event);
 
-    //     isLocked = !isLocked;
-        
-    // }
+  //     isLocked ? document.body.requestPointerLock() : document.exitPointerLock();
 
-    // switch ( event.code ) {
+  //     isLocked = !isLocked;
 
-    //     case 'ArrowUp':
-    //     case 'KeyW':
-    //         moveForward = true;
-    //         break;
+  // }
 
-    //     case 'ArrowLeft':
-    //     case 'KeyA':
-    //         moveLeft = true;
-    //         break;
+  // switch ( event.code ) {
 
-    //     case 'ArrowDown':
-    //     case 'KeyS':
-    //         moveBackward = true;
-    //         break;
+  //     case 'ArrowUp':
+  //     case 'KeyW':
+  //         moveForward = true;
+  //         break;
 
-    //     case 'ArrowRight':
-    //     case 'KeyD':
-    //         moveRight = true;
-    //         break;
+  //     case 'ArrowLeft':
+  //     case 'KeyA':
+  //         moveLeft = true;
+  //         break;
 
-    //     case 'Space':
-    //         if ( canJump === true ) velocity.y += 350;
-    //         canJump = false;
-    //         break;
+  //     case 'ArrowDown':
+  //     case 'KeyS':
+  //         moveBackward = true;
+  //         break;
 
-    // }
+  //     case 'ArrowRight':
+  //     case 'KeyD':
+  //         moveRight = true;
+  //         break;
+
+  //     case 'Space':
+  //         if ( canJump === true ) velocity.y += 350;
+  //         canJump = false;
+  //         break;
+
+  // }
 
 }; 
