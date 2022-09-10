@@ -7,7 +7,7 @@ import { MovementState } from '../utils/movement-state';
 
 const EULER = new Euler(0, 0, 0, 'YXZ');
 
-const SPEED = 400.0;
+const SPEED = 100.0;
 
 // const _changeEvent = { type: 'change' };
 // const _lockEvent = { type: 'lock' };
