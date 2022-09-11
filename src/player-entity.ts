@@ -14,22 +14,27 @@ export class PlayerEntity {
     this.element = new Mesh(geometry, material);
     this.scene.add(this.element);
 
-    const initialXPosition = Math.random() * 5;
-    const initialZPosition = Math.random() * 5;
-
-    this.element.position.set(initialXPosition, 0, initialZPosition);
+    this.element.position.set(0, 0, 0);
   }
 
-  getSocketId(): string{
+  getSocketId(): string {
     return this.socketId;
   }
 
-  Remove(): void{
+  Remove(): void {
     this.scene.remove(this.element);
   }
 
   Update(elapsedTime: number): void {
     return;
+  }
+
+  setPosition(x: number, y: number, z: number) {
+    this.element.position.set(x, y, z);
+  }
+
+  getPosition(): { x: number, y: number, z: number } {
+    return this.element.position;
   }
 
 }

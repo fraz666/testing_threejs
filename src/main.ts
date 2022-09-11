@@ -25,7 +25,7 @@ socket.on('player-joined', (player) => {
   playersEntity.push(new PlayerEntity({ scene, socketId: player.socketId }));
 });
 socket.on('player-leave', (socketId: string) => {
-  console.log('leave player', socketId, playersEntity );
+  console.log('leave player', socketId, playersEntity);
   const index = playersEntity.findIndex(x => x.getSocketId() === socketId);
   if (index > -1) {
     playersEntity[index].Remove();
@@ -33,11 +33,27 @@ socket.on('player-leave', (socketId: string) => {
   }
 });
 
+socket.on('request-upload-position', () => {
+  console.log('update position');
+  socket.emit('update-position', camera.position);
+});
+
 socket.on('create-players', (players) => {
   players.forEach(player => {
     playersEntity.push(new PlayerEntity({ scene, socketId: player.socketId }));
   });
 });
+
+socket.on('update-players-position', (players) => {
+  players.forEach((player: any) => {
+    const index = playersEntity.findIndex(x => x.getSocketId() === player.socketId);
+    if (index > -1) {
+      console.log('finded');
+      playersEntity[index].setPosition(player.position.x, player.position.y, player.position.z);
+
+    }
+  });
+})
 
 
 
