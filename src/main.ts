@@ -9,6 +9,7 @@ import { UserControls } from "./controls/UserControls";
 import { onKeyDown } from "./events/keyboard-helper";
 import { onMouseClick, onMouseMove } from "./events/mouse-helper";
 import { degToRad } from "three/src/math/MathUtils";
+import { generateDebugLevel } from "./level/level-generator";
 
 
 
@@ -36,23 +37,9 @@ document.addEventListener( 'keyup', user.updateOnKeyboard );
 document.addEventListener( 'mousemove', user.updateOnMouseMove );
 document.addEventListener( 'click', onMouseClick );
 
-// 3D environment
-const geometry = new BoxGeometry(1, 1, 1);
-const material = new MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new Mesh(geometry, material);
-scene.add(cube);
+const debugLevel = generateDebugLevel(scene);
 
-const plane = new Mesh(
-  new PlaneGeometry(30, 30),
-  new MeshBasicMaterial({color: 0xff0000})
-);
-plane.rotation.x = degToRad(-90);
-plane.position.y = -5;
-scene.add(plane);
-// console.log(plane)
-
-// animation loop
-
+// ANIMATION LOOP
 let prevTime = performance.now();
 
 function animate() {
@@ -70,13 +57,7 @@ function animate() {
   user.update(delta);
 
   // environment
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  
-
-  //console.log(camera.position)
-  //camera.position.x += 0.01;
+  debugLevel.update(delta);
 
   prevTime = time;
 
