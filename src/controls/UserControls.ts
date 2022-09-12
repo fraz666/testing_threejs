@@ -68,6 +68,21 @@ class UserControls {
 		const lrVect = new Vector3();
 		lrVect.setFromMatrixColumn( this.camera.matrix, 0 );
 		this.camera.position.addScaledVector( lrVect, -this.velocity.x * delta );
+
+		// // jump
+		// this.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+		// this.velocity.y += this.direction.y * 350; // height of jump		
+
+		// //const velocitY = Math.max( 0, this.velocity.y);
+		// const velocitY = this.velocity.y;
+		// this.camera.position.y += ( velocitY * delta );
+
+		// if (this.camera.position.y < 5) { 
+		// 	this.velocity.y = 0;
+		// 	this.camera.position.y = 5
+		// }
+
+		// console.log(this.direction);
 	}
 
 	// TODO use custom wrapped events
@@ -101,6 +116,8 @@ class UserControls {
 		const mvs = prev.copy();
 		const isMoveEvent = event.type == "keydown";
 
+		mvs.jump = false;
+
 		switch ( event.code ) {
 
 			case 'ArrowUp':
@@ -121,6 +138,10 @@ class UserControls {
 			case 'ArrowLeft':
 			case 'KeyA':
 				mvs.left = isMoveEvent;
+				break;
+
+			case 'Space':
+				mvs.jump = isMoveEvent;
 				break;
 
 		}
