@@ -53,6 +53,8 @@ scene.add(plane);
 
 // animation loop
 
+let infoElement = document.getElementById("state-machine");
+
 let prevTime = performance.now();
 
 function animate() {
@@ -67,6 +69,7 @@ function animate() {
   const delta = ( time - prevTime ) / 1000;
   
   // user
+  //infoElement.innerHTML = delta;
   user.update(delta);
 
   // environment

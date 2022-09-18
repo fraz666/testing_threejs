@@ -5,6 +5,7 @@ import {
 	Vector3
 } from 'three';
 import { MovementState } from '../utils/movement-state';
+import { State, StateMachine } from '../utils/state-machine';
 
 const EULER = new Euler(0, 0, 0, 'YXZ');
 
@@ -15,6 +16,15 @@ const SPEED: number = 400.0;
 // const _unlockEvent = { type: 'unlock' };
 
 const _PI_2 = Math.PI / 2;
+
+// TODO move to general entity 
+enum UserStates {
+	IDLE = 'IDLE',
+	WALK = 'WALK',
+	RUN = 'RUN',
+	JUMP = 'JUMP',
+	SLIDE = 'SLIDE'
+};
 
 class UserControls {
 
@@ -28,6 +38,9 @@ class UserControls {
 	private camera: PerspectiveCamera;
 
 	private movementState: MovementState;
+	private stateMachine: StateMachine;
+
+	//private helperElement: Element = null;
 
 	constructor(camera: PerspectiveCamera) {
 
@@ -44,6 +57,15 @@ class UserControls {
 		this.velocity = new Vector3();
 
 		this.movementState = new MovementState();
+
+		const states: State[] = [
+			{ id: UserStates.IDLE },
+			{ id: UserStates.WALK },
+			{ id: UserStates.RUN },
+			{ id: UserStates.JUMP },
+			{ id: UserStates.SLIDE },
+		];
+		this.stateMachine = new StateMachine(states, states[0]);
 	}
 
 	update = (delta: number) => {
@@ -112,6 +134,10 @@ class UserControls {
 		//console.log(this.movementState, this.direction);
 	}
 
+	// attachHelperElement = (element: Element) => {
+	// 	this.helperElement = element;
+	// }
+
 	private updateMovementState(event: any, prev: MovementState): MovementState {
 		const mvs = prev.copy();
 		const isMoveEvent = event.type == "keydown";
@@ -123,29 +149,35 @@ class UserControls {
 			case 'ArrowUp':
 			case 'KeyW':
 				mvs.forward = isMoveEvent;
+				this.stateMachine.update({ id: isMoveEvent ? UserStates.WALK : UserStates.IDLE});
 				break;
 
 			case 'ArrowDown':
 			case 'KeyS':
 				mvs.backward = isMoveEvent;
+				this.stateMachine.update({ id: isMoveEvent ? UserStates.WALK : UserStates.IDLE});
 				break;
 
 			case 'ArrowRight':
 			case 'KeyD':
 				mvs.right = isMoveEvent;
+				this.stateMachine.update({ id: isMoveEvent ? UserStates.WALK : UserStates.IDLE});
 				break;
 
 			case 'ArrowLeft':
 			case 'KeyA':
 				mvs.left = isMoveEvent;
+				this.stateMachine.update({ id: isMoveEvent ? UserStates.WALK : UserStates.IDLE});
 				break;
 
 			case 'Space':
 				mvs.jump = isMoveEvent;
+				this.stateMachine.update({ id: isMoveEvent ? UserStates.JUMP : UserStates.IDLE});
 				break;
 
 		}
 
+		console.log(this.stateMachine.get().id);
 		//direction.normalize(); // this ensures consistent movements in all directions
 		return mvs;
 	}
