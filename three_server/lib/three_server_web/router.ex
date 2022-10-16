@@ -7,6 +7,8 @@ defmodule ThreeServerWeb.Router do
 
   scope "/api", ThreeServerWeb do
     pipe_through :api
+
+    get "/ping", RoomController, :ping
   end
 
   # Enables LiveDashboard only for development

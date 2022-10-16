@@ -4,11 +4,12 @@ import "./style.css";
 // @ts-ignore
 import Stats from "../lib/stats.min";
 import { BoxGeometry, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { Socket } from "phoenix";
 
 
-var stats = new Stats();
-stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild( stats.dom );
+const stats = new Stats();
+stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom);
 
 
 const scene = new Scene();
@@ -45,3 +46,19 @@ function animate() {
 }
 
 animate();
+
+const socket = new Socket("ws://localhost:4000/connection", { params: { token: (window as any)?.userToken } });
+
+socket.connect();
+
+const channel = socket.channel("game", {});
+channel.join()
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp);
+    channel.push("player-joined", { body: "Culo" });
+  })
+  .receive("error", resp => { console.log("Unable to join", resp); });
+
+channel.on("player-joined", (resp) => {
+  console.log(resp);
+});
