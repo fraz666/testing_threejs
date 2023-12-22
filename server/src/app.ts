@@ -4,10 +4,12 @@ import gameServer from '../utils/socket';
 import { AppRequest } from '../utils/custom-types';
 
 const app = express();
-const httpServer = createServer(app);
-const gs = gameServer(httpServer);
 
 app.use(express.json());
+
+const httpServer = createServer(app);
+
+const gs = gameServer(httpServer);
 
 // req.gameServer accessibile con cast tramite AppRequest
 app.use('gameServer', (req, res, next) => {
@@ -20,7 +22,5 @@ app.get('/', async (req, res) => {
 
   res.sendFile(__dirname + '/index.html');
 });
-
-
 
 export default httpServer;
