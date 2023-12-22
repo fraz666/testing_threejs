@@ -1,10 +1,10 @@
-import { Server } from 'socket.io';
+import { Server, RedisPresence } from "colyseus";
 import http from 'node:http';
-import redisClient from './redis';
-import { createAdapter } from '@socket.io/redis-streams-adapter';
 
-const createSocketServer = (httpServer: http.Server) => new Server(httpServer, {
-  adapter: createAdapter(redisClient, { streamName: 'three-gay' }),
+const gameServer = (httpServer: http.Server) => new Server({
+  server: httpServer,
+  presence: new RedisPresence(process.env.REDIS_URL),
+  devMode: process.env.NODE_ENV !== 'production'
 });
 
-export default createSocketServer;
+export default gameServer;

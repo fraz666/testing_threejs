@@ -1,4 +1,4 @@
 import { Request } from 'express';
-import { Server } from 'socket.io';
+import { Server } from 'colyseus';
 
-export type AppRequest = Request & NonNullable<{ io: Server }>;
+export type AppRequest = Request & NonNullable<{ gameServer: Server }>;
